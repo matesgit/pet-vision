@@ -1,0 +1,43 @@
+                            precision    recall  f1-score   support
+
+                Abyssinian      0.843     0.878     0.860        98
+          American Bulldog      0.688     0.860     0.764       100
+ American Pit Bull Terrier      0.746     0.470     0.577       100
+              Basset Hound      0.910     0.910     0.910       100
+                    Beagle      0.879     0.870     0.874       100
+                    Bengal      0.829     0.920     0.872       100
+                    Birman      0.789     0.860     0.823       100
+                    Bombay      0.789     0.977     0.873        88
+                     Boxer      0.830     0.889     0.859        99
+         British Shorthair      0.952     0.800     0.870       100
+                 Chihuahua      0.897     0.780     0.834       100
+              Egyptian Mau      0.899     0.918     0.908        97
+    English Cocker Spaniel      0.880     0.950     0.913       100
+            English Setter      1.000     0.860     0.925       100
+        German Shorthaired      0.865     0.960     0.910       100
+            Great Pyrenees      1.000     0.940     0.969       100
+                  Havanese      0.872     0.950     0.909       100
+             Japanese Chin      0.971     0.990     0.980       100
+                  Keeshond      0.990     0.960     0.974        99
+                Leonberger      0.980     0.960     0.970       100
+                Maine Coon      0.952     0.790     0.863       100
+        Miniature Pinscher      0.903     0.840     0.870       100
+              Newfoundland      0.925     0.990     0.957       100
+                   Persian      0.954     0.830     0.888       100
+                Pomeranian      0.889     0.960     0.923       100
+                       Pug      0.990     0.950     0.969       100
+                   Ragdoll      0.704     0.760     0.731       100
+              Russian Blue      0.933     0.840     0.884       100
+             Saint Bernard      0.941     0.960     0.950       100
+                   Samoyed      0.934     0.990     0.961       100
+          Scottish Terrier      0.950     0.970     0.960        99
+                 Shiba Inu      0.905     0.950     0.927       100
+                   Siamese      0.938     0.760     0.840       100
+                    Sphynx      0.940     0.940     0.940       100
+Staffordshire Bull Terrier      0.538     0.640     0.585        89
+           Wheaten Terrier      0.880     0.950     0.913       100
+         Yorkshire Terrier      0.978     0.880     0.926       100
+
+                  accuracy                          0.884      3669
+                 macro avg      0.888     0.884     0.883      3669
+              weighted avg      0.889     0.884     0.884      3669

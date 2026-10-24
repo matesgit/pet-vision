@@ -1,0 +1,99 @@
+{
+  "name": "resnet18_ft_noaug",
+  "config": {
+    "name": "resnet18_ft_noaug",
+    "model": "resnet18",
+    "pretrained": true,
+    "freeze_backbone": false,
+    "augment": "none",
+    "epochs": 10,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "batch_size": 32,
+    "amp": true,
+    "data_root": "data",
+    "seed": 42
+  },
+  "test_acc": 0.8844371763423277,
+  "test_top5_acc": 0.9860997547015535,
+  "test_macro_f1": 0.8802939503762849,
+  "best_val_acc": 0.9057971014492754,
+  "params_m": 11.195493,
+  "size_mb": 42.74419021606445,
+  "latency_ms_bs1": 3.1601543400029186,
+  "device": "cuda",
+  "most_confused_pairs": [
+    [
+      29,
+      "American Pit Bull Terrier",
+      "Staffordshire Bull Terrier"
+    ],
+    [
+      19,
+      "Ragdoll",
+      "Birman"
+    ],
+    [
+      15,
+      "American Pit Bull Terrier",
+      "American Bulldog"
+    ],
+    [
+      14,
+      "Staffordshire Bull Terrier",
+      "American Bulldog"
+    ],
+    [
+      11,
+      "Maine Coon",
+      "Ragdoll"
+    ],
+    [
+      9,
+      "American Pit Bull Terrier",
+      "German Shorthaired"
+    ],
+    [
+      9,
+      "Egyptian Mau",
+      "Bengal"
+    ],
+    [
+      8,
+      "Siamese",
+      "Birman"
+    ],
+    [
+      8,
+      "Abyssinian",
+      "Bengal"
+    ],
+    [
+      8,
+      "Beagle",
+      "Basset Hound"
+    ]
+  ],
+  "hardest_classes": [
+    [
+      "American Pit Bull Terrier",
+      0.31
+    ],
+    [
+      "Staffordshire Bull Terrier",
+      0.5056179775280899
+    ],
+    [
+      "Ragdoll",
+      0.75
+    ],
+    [
+      "Maine Coon",
+      0.78
+    ],
+    [
+      "Siamese",
+      0.81
+    ]
+  ]
+}

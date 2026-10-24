@@ -1,0 +1,99 @@
+{
+  "name": "scratch_cnn",
+  "config": {
+    "name": "scratch_cnn",
+    "model": "simple_cnn",
+    "pretrained": false,
+    "freeze_backbone": false,
+    "augment": "basic",
+    "epochs": 30,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 32,
+    "amp": true,
+    "data_root": "data",
+    "seed": 42
+  },
+  "test_acc": 0.35322976287816843,
+  "test_top5_acc": 0.7296266012537476,
+  "test_macro_f1": 0.34167578931617537,
+  "best_val_acc": 0.447463768115942,
+  "params_m": 1.182725,
+  "size_mb": 4.519123077392578,
+  "latency_ms_bs1": 2.7743390999967232,
+  "device": "cuda",
+  "most_confused_pairs": [
+    [
+      37,
+      "Newfoundland",
+      "Scottish Terrier"
+    ],
+    [
+      33,
+      "Great Pyrenees",
+      "Samoyed"
+    ],
+    [
+      32,
+      "Russian Blue",
+      "British Shorthair"
+    ],
+    [
+      26,
+      "Wheaten Terrier",
+      "Havanese"
+    ],
+    [
+      24,
+      "British Shorthair",
+      "Russian Blue"
+    ],
+    [
+      23,
+      "English Cocker Spaniel",
+      "Scottish Terrier"
+    ],
+    [
+      22,
+      "Birman",
+      "Ragdoll"
+    ],
+    [
+      21,
+      "Beagle",
+      "Saint Bernard"
+    ],
+    [
+      20,
+      "Maine Coon",
+      "Persian"
+    ],
+    [
+      20,
+      "Siamese",
+      "Birman"
+    ]
+  ],
+  "hardest_classes": [
+    [
+      "American Pit Bull Terrier",
+      0.04
+    ],
+    [
+      "Chihuahua",
+      0.08
+    ],
+    [
+      "English Cocker Spaniel",
+      0.11
+    ],
+    [
+      "Miniature Pinscher",
+      0.12
+    ],
+    [
+      "Pomeranian",
+      0.13
+    ]
+  ]
+}

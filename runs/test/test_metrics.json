@@ -1,0 +1,99 @@
+{
+  "name": "test",
+  "config": {
+    "name": "test",
+    "model": "resnet18",
+    "pretrained": true,
+    "freeze_backbone": false,
+    "augment": "basic",
+    "epochs": 1,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "batch_size": 32,
+    "amp": true,
+    "data_root": "data",
+    "seed": 42
+  },
+  "test_acc": 0.7745979831016626,
+  "test_top5_acc": 0.9670209866448624,
+  "test_macro_f1": 0.7646861293178145,
+  "best_val_acc": 0.8170289855072463,
+  "params_m": 11.195493,
+  "size_mb": 42.74419021606445,
+  "latency_ms_bs1": 2.8940212599991355,
+  "device": "cuda",
+  "most_confused_pairs": [
+    [
+      53,
+      "Yorkshire Terrier",
+      "Havanese"
+    ],
+    [
+      47,
+      "Basset Hound",
+      "Beagle"
+    ],
+    [
+      41,
+      "Russian Blue",
+      "British Shorthair"
+    ],
+    [
+      34,
+      "Birman",
+      "Ragdoll"
+    ],
+    [
+      27,
+      "American Pit Bull Terrier",
+      "Beagle"
+    ],
+    [
+      20,
+      "American Pit Bull Terrier",
+      "Staffordshire Bull Terrier"
+    ],
+    [
+      18,
+      "Birman",
+      "Siamese"
+    ],
+    [
+      17,
+      "Scottish Terrier",
+      "Havanese"
+    ],
+    [
+      17,
+      "Chihuahua",
+      "Shiba Inu"
+    ],
+    [
+      16,
+      "American Pit Bull Terrier",
+      "American Bulldog"
+    ]
+  ],
+  "hardest_classes": [
+    [
+      "American Pit Bull Terrier",
+      0.15
+    ],
+    [
+      "Birman",
+      0.37
+    ],
+    [
+      "Yorkshire Terrier",
+      0.37
+    ],
+    [
+      "Staffordshire Bull Terrier",
+      0.449438202247191
+    ],
+    [
+      "Russian Blue",
+      0.47
+    ]
+  ]
+}
