@@ -45,6 +45,20 @@ Most confused breeds: American Pit Bull Terrier / Staffordshire Bull Terrier, Ra
 
 Full comparison table: `runs/comparison.md`. Learning curves and confusion matrices: `runs/`.
 
+## Trained models
+Model weights are not stored in the repository because of their size. To reproduce them,
+run the Colab commands above: `run_experiments.sh` retrains all models in about 30-40 minutes
+and saves them to `runs/<experiment>/best.pt`.
+
+## Technical report
+The technical report (in Georgian) is included in this repository as a separate file.
+
+## Limitations
+Single seed per experiment; no hyperparameter search; classes are not stratified in the val split.
+The model knows only the 37 breeds of the dataset and has no "unknown" class.
+
+Full comparison table: `runs/comparison.md`. Learning curves and confusion matrices: `runs/`.
+
 
 ## Limitations
 Single seed per experiment; no hyperparameter search; classes are not stratified in the val split.
