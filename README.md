@@ -1,5 +1,5 @@
 # Pet Breed Classification - End-to-End Computer Vision Project
-
+**Live demo (runs in the browser, no install):** https://huggingface.co/spaces/mateshuggingface/pet-breed-classifier
 Classify 37 cat/dog breeds from the Oxford-IIIT Pet dataset (~7.4k images) using
 transfer learning (PyTorch / torchvision), with a systematic set of experiments,
 error analysis, ONNX export and a Gradio demo.
