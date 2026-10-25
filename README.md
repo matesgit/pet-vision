@@ -57,9 +57,7 @@ The technical report (in Georgian) is included in this repository as a separate 
 Single seed per experiment; no hyperparameter search; classes are not stratified in the val split.
 The model knows only the 37 breeds of the dataset and has no "unknown" class.
 
-Full comparison table: `runs/comparison.md`. Learning curves and confusion matrices: `runs/`.
 
 
-## Limitations
-Single seed per experiment; no hyperparameter search; classes are not stratified in the val split.
-The model knows only the 37 breeds of the dataset and has no "unknown" class.
+
+
