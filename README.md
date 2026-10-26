@@ -1,13 +1,17 @@
 # Pet Breed Classification - End-to-End Computer Vision Project
+
 **Live demo (runs in the browser, no install):** https://huggingface.co/spaces/mateshuggingface/pet-breed-classifier
+
 Classify 37 cat/dog breeds from the Oxford-IIIT Pet dataset (~7.4k images) using
 transfer learning (PyTorch / torchvision), with a systematic set of experiments,
 error analysis, ONNX export and a Gradio demo.
 
 ## Pipeline
-data (`src/data.py`) -> model (`src/model.py`) -> training (`src/train.py`) ->
+data exploration (`src/eda.py`) -> data (`src/data.py`) -> model (`src/model.py`) -> training (`src/train.py`) ->
 test evaluation (`src/evaluate.py`) -> comparison (`src/compare_runs.py`) ->
 optimization (`src/export_onnx.py`) -> demo (`app.py`)
+
+Dataset exploration (class balance, image sizes, samples): `python -m src.eda` (figures in `eda/`).
 
 ## Run on Google Colab (free GPU: Runtime > Change runtime type > T4)
 ```bash
@@ -38,20 +42,23 @@ Single run: `python -m src.train --name my_run --model resnet18 --augment basic 
 | MobileNetV3-Small | fine-tune, basic augmentation | 85.0% | 0.848 | 6.0 MB |
 
 Final model: `resnet18_ft_basic` (chosen by validation accuracy, 92.6%).
+The live demo runs this model, exported to ONNX, in the browser (ONNX Runtime Web).
 
 ONNX Runtime on CPU, per image: ResNet18 59.4 ms -> 33.8 ms, MobileNetV3 9.4 ms -> 2.3 ms.
 
 Most confused breeds: American Pit Bull Terrier / Staffordshire Bull Terrier, Ragdoll / Birman.
+These breeds have the full ~100 images per class, so the errors come from visual similarity, not from lack of data.
 
 Full comparison table: `runs/comparison.md`. Learning curves and confusion matrices: `runs/`.
 
 ## Trained models
-Model weights are not stored in the repository because of their size. To reproduce them,
+Model weights are not stored in this repository because of their size. To reproduce them,
 run the Colab commands above: `run_experiments.sh` retrains all models in about 30-40 minutes
-and saves them to `runs/<experiment>/best.pt`.
+and saves them to `runs/<experiment>/best.pt`. The ONNX version of the final model is also
+available in the Files tab of the Hugging Face Space linked above.
 
 ## Technical report
-The technical report (in Georgian) is included in this repository as a separate file.
+The technical report (in Georgian) is included in this repository as a PDF file.
 
 ## Limitations
 Single seed per experiment; no hyperparameter search; classes are not stratified in the val split.
