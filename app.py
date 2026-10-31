@@ -14,6 +14,7 @@ p.add_argument("--ckpt", default="runs/resnet18_finetune_basic/best.pt")
 p.add_argument("--share", action="store_true")
 args = p.parse_args()
 
+# გამოთვლითი მოწყობილობის (GPU/CPU) განსაზღვრა და გაწვრთნილი მოდელის ჩატვირთვა
 device = get_device()
 model, classes, _ = load_model(args.ckpt, device)
 _, tf = get_transforms("none")
@@ -21,11 +22,13 @@ _, tf = get_transforms("none")
 
 @torch.no_grad()
 def classify(img):
+    """ღებულობს ატვირთულ სურათს, ამზადებს მოდელისთვის და აბრუნებს ტოპ-5 ჯიშს ალბათობებით."""
     x = tf(img.convert("RGB")).unsqueeze(0).to(device)
     probs = model(x).softmax(1)[0]
     return {classes[i]: float(probs[i]) for i in probs.topk(5).indices}
 
 
+# Gradio ვებ-ინტერფეისის კონფიგურაცია და გაშვება
 gr.Interface(fn=classify, inputs=gr.Image(type="pil"),
              outputs=gr.Label(num_top_classes=5),
              title="Pet breed classifier (37 breeds)",
