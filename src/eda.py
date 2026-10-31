@@ -17,12 +17,14 @@ import numpy as np
 from PIL import Image
 from torchvision import datasets
 
+# კატების ჯიშების სია
 CATS = {"Abyssinian", "Bengal", "Birman", "Bombay", "British Shorthair", "Egyptian Mau",
         "Maine Coon", "Persian", "Ragdoll", "Russian Blue", "Siamese", "Sphynx"}
+# ჯიშები, რომლების მონაცემებსაც განსაკუთრებულად ვაკვირდებით
 WATCH = ["American Pit Bull Terrier", "Staffordshire Bull Terrier", "Ragdoll", "Birman"]
 
 def load_stats(ds):
-    """Returns labels and (width, height) of every image in a torchvision dataset."""
+    """აბრუნებს torchvision მონაცემთა ნაკრების თითოეული სურათის ეტიკეტებს და (სიგანე, სიმაღლე) ზომებს."""
     sizes = []
     for path in ds._images:
         with Image.open(path) as im:
@@ -30,6 +32,7 @@ def load_stats(ds):
     return np.array(ds._labels), np.array(sizes)
 
 def print_summary(name, labels, sizes, n_classes, cat_idx):
+    # ითვლის თითოეული კლასის სურათების რაოდენობას
     counts = np.bincount(labels, minlength=n_classes)
     w, h = sizes[:, 0], sizes[:, 1]
     cats = counts[cat_idx].sum()
@@ -48,15 +51,18 @@ def main():
     p.add_argument("--out", default="eda")
     args = p.parse_args()
 
+    # შედეგების შესანახი საქაღალდის შექმნა
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
 
+    # Oxford-IIIT Pet მონაცემთა ნაკრების ჩატვირთვა trainval და test სექციებისთვის
     kw = dict(root=args.data_root, target_types="category", download=True)
     train = datasets.OxfordIIITPet(split="trainval", **kw)
     test = datasets.OxfordIIITPet(split="test", **kw)
     classes = train.classes
     cat_idx = [i for i, c in enumerate(classes) if c in CATS]
 
+    # სტატისტიკის ამოღება
     y_tr, s_tr = load_stats(train)
     y_te, s_te = load_stats(test)
     c_tr = print_summary("trainval", y_tr, s_tr, len(classes), cat_idx)
@@ -65,7 +71,7 @@ def main():
         i = classes.index(name)
         print(f"{name}: trainval={c_tr[i]}, test={c_te[i]}")
 
-    # 1) images per class
+    # 1) სურათების რაოდენობა თითოეულ კლასში (სვეტოვანი დიაგრამა)
     fig, ax = plt.subplots(figsize=(12, 4.5))
     x = np.arange(len(classes))
     ax.bar(x - 0.2, c_tr, 0.4, label="trainval")
@@ -79,7 +85,7 @@ def main():
     fig.savefig(out / "class_distribution.png", dpi=130)
     plt.close(fig)
 
-    # 2) image sizes
+    # 2) სურათების ზომების განაწილება (სკატერპლოტი)
     fig, ax = plt.subplots(figsize=(6, 5))
     ax.scatter(s_tr[:, 0], s_tr[:, 1], s=4, alpha=0.4)
     ax.axhline(224, color="r", lw=0.8)
@@ -91,7 +97,7 @@ def main():
     fig.savefig(out / "image_sizes.png", dpi=130)
     plt.close(fig)
 
-    # 3) random samples
+    # 3) შემთხვევითი სურათების ნიმუშები (ბადე)
     random.seed(0)
     idx = random.sample(range(len(train)), 12)
     fig, axes = plt.subplots(2, 6, figsize=(14, 5))
