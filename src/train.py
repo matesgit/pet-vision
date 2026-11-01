@@ -33,10 +33,10 @@ def run_epoch(model, loader, criterion, device, optimizer=None, scaler=None, amp
                 # გრადიენტები ნაგულისხმევად ჯამდება, ამიტომ ყოველ ბიჯზე ვასუფთავებთ
                 optimizer.zero_grad(set_to_none=True)
                 # float16-ში პატარა გრადიენტები ნულად შეიძლება იქცეს, ამიტომ loss-ს ჯერ ვზრდით (scale)
-                scaler.scale(loss).backward()    # backward: რომელმა წონამ რა წილად შეცდომა დაუშვა
+                scaler.scale(loss).backward()    # backward: რომელმა წონამ რა შეცდომა დაუშვა
                 scaler.step(optimizer)           # წონების გასწორება
                 scaler.update()
-            # loss-ს ბეჩის ზომაზე ვამრავლებთ, რომ ბოლო (პატარა) ბეჩიც სწორად ჩაითვალოს
+            # loss-ს ბეჩის ზომაზე ვამრავლებთ, რომ ბოლო ბეჩიც სწორად ჩაითვალოს
             loss_sum += loss.item() * x.size(0)
             # პროგნოზი = ის ჯიში, რომლის ქულაც ყველაზე მაღალია
             correct += (out.argmax(1) == y).sum().item()
