@@ -46,6 +46,7 @@ def run_epoch(model, loader, criterion, device, optimizer=None, scaler=None, amp
 
 def main():
     # პარამეტრებს ბრძანებიდან ვიღებთ, რომ ექსპერიმენტის შესაცვლელად კოდის შეცვლა არ დაგვჭირდეს
+    # argparse საშუალებას გვაძლევს ტერმინალიდანვე ვმართოთ ექსპერიმენტი მაგ: რომელი მოდელი გამოვიყენოთ 
     p = argparse.ArgumentParser()
     p.add_argument("--name", required=True)
     p.add_argument("--model", default="resnet18", choices=["simple_cnn", "resnet18", "mobilenet_v3_small"])
