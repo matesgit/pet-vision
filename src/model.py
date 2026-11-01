@@ -13,18 +13,18 @@ class SimpleCNN(nn.Module):
         layers = []
         for cin, cout in zip(chans[:-1], chans[1:]):
             layers += [
-                # bias=False, რადგან მომდევნო BatchNorm-ს თავისი წანაცვლება აქვს
+                # bias=False, რადგან მომდევნო BatchNorm ფენას თავისი ცდომილების (bias) გადასაჭრელი მექანიკა აქვს
                 nn.Conv2d(cin, cout, 3, padding=1, bias=False),
                 nn.BatchNorm2d(cout), nn.ReLU(inplace=True),
                 nn.Conv2d(cout, cout, 3, padding=1, bias=False),
                 nn.BatchNorm2d(cout), nn.ReLU(inplace=True),
-                # სურათს ვანახევრებთ, რომ ღრმა ფენებმა მეტი არე დაინახოს და გამოთვლა შემცირდეს
+                # სურათს ვანახევრებთ, რომ ღრმა ფენებმა მეტად დაინახოს და გამოთვლა შემცირდეს
                 nn.MaxPool2d(2),
             ]
         self.features = nn.Sequential(*layers)
-        # საშუალო პულინგი ნებისმიერ ზომაზე მუშაობს და ბევრად ნაკლებ პარამეტრს სჭირდება
+        # საშუალო პულინგი ნებისმიერ ზომაზე მუშაობს და ბევრად ნაკლები პარამეტრი სჭირდება
         self.pool = nn.AdaptiveAvgPool2d(1)
-        # Dropout გვეხმარება, რომ მოდელმა სასწავლი ფოტოები არ დაიზეპიროს
+        # Dropout გვეხმარება, რომ მოდელმა სასწავლი ფოტოები არ დაიზეპიროს ანუ overfitting არმოხდეს
         self.classifier = nn.Sequential(nn.Dropout(0.3), nn.Linear(256, num_classes))
 
     def forward(self, x):
@@ -34,14 +34,14 @@ class SimpleCNN(nn.Module):
 
 def build_model(name: str, num_classes: int, pretrained: bool = True,
                 freeze_backbone: bool = False) -> nn.Module:
-    # "DEFAULT" = ImageNet-ზე გაწვრთნილი წონები (transfer learning), None = ნულიდან
+    # "DEFAULT" = ImageNet-ზე გაწვრთნილი წონები(weights) (transfer learning), None = ნულიდან
     weights = "DEFAULT" if pretrained else None
     if name == "simple_cnn":
         model = SimpleCNN(num_classes)
         head_prefix = "classifier"
     elif name == "resnet18":
         model = models.resnet18(weights=weights)
-        # მხოლოდ ბოლო ფენას ვცვლით: 1000 ImageNet-კლასის ნაცვლად 37 ჯიში (512 -> 37).
+        # მხოლოდ ბოლო ფენას ვცვლით: 1000 ImageNet-კლასის ნაცვლად 37 ჯიში 
         # დანარჩენი ქსელი ინარჩუნებს მზა ცოდნას
         model.fc = nn.Linear(model.fc.in_features, num_classes)
         head_prefix = "fc"
@@ -51,10 +51,10 @@ def build_model(name: str, num_classes: int, pretrained: bool = True,
         model.classifier[3] = nn.Linear(model.classifier[3].in_features, num_classes)
         head_prefix = "classifier"
     else:
-        # უცნობი სახელის შემთხვევაში პირდაპირ გავჩერდეთ და არა ჩუმად ცუდი მოდელით ვიმუშაოთ
+        # უცნობი სახელის შემთხვევაში პირდაპირ გავჩერდეთ 
         raise ValueError(f"unknown model: {name}")
 
-    if freeze_backbone:  # "linear probe": train only the new head
+    if freeze_backbone: 
         # linear probe ექსპერიმენტისთვის: ყველა პარამეტრს ვყინავთ ბოლო ფენის გარდა.
         # ამით ვამოწმებთ, საკმარისია თუ არა მზა ნიშნები და მხოლოდ ახალი ფენის სწავლა
         for n, p in model.named_parameters():
