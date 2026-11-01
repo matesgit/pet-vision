@@ -68,7 +68,6 @@ def main():
     out_dir = Path("runs") / args.name           # ყოველ ექსპერიმენტს თავისი საქაღალდე აქვს
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # test ნაკრებს აქ არ ვიღებთ (_): ტრენინგისას მას არ უნდა შევეხოთ
     train_loader, val_loader, _, classes = get_loaders(
         args.data_root, args.batch_size, args.augment, seed=args.seed)
     model = build_model(args.model, len(classes), args.pretrained, args.freeze_backbone).to(device)
@@ -76,11 +75,11 @@ def main():
     print(f"device={device} amp={amp} params={count_params(model):,} trainable={trainable:,}")
 
     criterion = nn.CrossEntropyLoss()
-    # optimizer-ს მხოლოდ სასწავლ პარამეტრებს ვაძლევთ (linear probe-ში გაყინულები გამოირიცხება);
-    # weight_decay დიდი წონების დაჯარიმებით overfitting-ს ამცირებს
+    # optimizer-ს მხოლოდ სასწავლ პარამეტრებს ვაძლევთ 
+    # weight_decay overfitting-ს ამცირებს
     optimizer = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad],
                                   lr=args.lr, weight_decay=args.weight_decay)
-    # learning rate ეტაპობრივად მცირდება ნულთან ახლოს, რომ ბოლოს წონები წვრილად დაიხვეწოს
+    # learning rate ეტაპობრივად მცირდება რომ წონები დაიხვეწოს
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
     scaler = torch.amp.GradScaler(device.type, enabled=amp)
 
@@ -94,9 +93,9 @@ def main():
                             val_loss=va_loss, val_acc=va_acc))
         print(f"epoch {epoch:02d} | train loss {tr_loss:.3f} acc {tr_acc:.3f} | "
               f"val loss {va_loss:.3f} acc {va_acc:.3f} | {time.time()-t0:.0f}s")
-        if va_acc > best_val:  # keep the best epoch according to VALIDATION accuracy
+        if va_acc > best_val:  # ვინახავთ საუკეთესო epoch-ს ვალიდაციის სიზუსტის მიხედვით
             best_val = va_acc
-            # ვინახავთ წონებს და კონფიგურაციას და ჯიშების სიას, რომ მოდელი მოგვიანებით ზუსტად აღვადგინოთ
+            # ვინახავთ წონებს,კონფიგურაციას და ჯიშების სიას, რომ მოდელი მოგვიანებით ზუსტად აღვადგინოთ
             torch.save(dict(model_state=model.state_dict(), config=vars(args),
                             classes=classes, val_acc=va_acc, epoch=epoch), out_dir / "best.pt")
 
