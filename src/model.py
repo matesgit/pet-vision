@@ -1,11 +1,10 @@
-"""Model definitions: a small CNN from scratch and pretrained backbones."""
 import torch.nn as nn
 from torchvision import models
 
 
 # საკონტროლო (baseline) მოდელი ნულიდან: მისით ვზომავთ, რამდენს გვაძლევს pretrained წონები
 class SimpleCNN(nn.Module):
-    """Baseline trained from scratch: 4 conv blocks + global pooling + linear head."""
+  
 
     def __init__(self, num_classes: int):
         super().__init__()
